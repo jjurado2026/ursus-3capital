@@ -959,7 +959,12 @@ h3 + p { margin-top: 0.5rem; }
 
   /* ---- BUTTONS — never wrap text ---- */
   .btn { white-space: nowrap; }
-  .hero__actions { flex-wrap: nowrap; }
+  /* Hero actions: stacked vertically */
+  .hero__actions {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--sp-sm);
+  }
 
   /* ---- STATS ---- */
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
@@ -985,13 +990,15 @@ h3 + p { margin-top: 0.5rem; }
   .architects__inner::after { display: none; }
 
   /* ---- BLOG ---- */
+  .blog { overflow: hidden; } /* needed so negative margin doesn't cause page scroll */
   .blog__header {
     flex-direction: column;
     align-items: flex-start;
-    gap: var(--sp-sm);
-    margin-bottom: var(--sp-md);
+    gap: var(--sp-xs);
+    margin-bottom: var(--sp-sm);
   }
-  /* Slider: left edge aligned with content, right edge peeks next card */
+  .blog__header h2 { margin-top: 0; }
+  /* Slider: cards start aligned with content left; peek next card on right */
   .blog__grid {
     grid-template-columns: none;
     display: flex;
@@ -1000,12 +1007,12 @@ h3 + p { margin-top: 0.5rem; }
     -webkit-overflow-scrolling: touch;
     gap: var(--sp-md);
     padding-bottom: var(--sp-sm);
-    /* Pull left to screen edge, restore padding so 1st card aligns with content */
-    margin-left: calc(-1 * var(--sp-md));
-    padding-left: var(--sp-md);
-    /* Extend right past container so next card peeks */
+    /* 0 left margin/padding → first card at container content edge (= 1.5rem from screen) */
+    padding-left: 0;
+    margin-left: 0;
+    /* Extend right past container right edge to allow peeking */
     margin-right: calc(-1 * var(--sp-md));
-    padding-right: var(--sp-md);
+    padding-right: 0;
     scrollbar-width: none;
   }
   .blog__grid::-webkit-scrollbar { display: none; }
