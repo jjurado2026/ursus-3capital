@@ -458,6 +458,7 @@
   gap: var(--sp-xl);
 }
 .products__header h2 { margin-top: 0.5rem; }
+.products .label { color: var(--gold); }
 .products__intro {
   max-width: 400px;
   font-size: 0.95rem;
@@ -490,8 +491,8 @@
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--gold);
-  opacity: 0.6;
+  color: var(--gold-pale);
+  opacity: 0.5;
   min-width: 28px;
 }
 
@@ -512,9 +513,9 @@
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold);
-  background: rgba(26, 20, 148, 0.25);
-  border: 1px solid rgba(26, 20, 148, 0.3);
+  color: var(--gold-pale);
+  background: rgba(74, 66, 212, 0.15);
+  border: 1px solid rgba(74, 66, 212, 0.3);
   padding: 0.2rem 0.6rem;
   border-radius: 2px;
 }
@@ -556,9 +557,9 @@
 
 .platform__inner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--sp-3xl);
-  align-items: center;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 0;
+  align-items: stretch;
   background: var(--navy);
   border: 1px solid rgba(240, 242, 245, 0.04);
   border-radius: var(--r-lg);
@@ -567,13 +568,14 @@
 
 .platform__content {
   padding: var(--sp-2xl) var(--sp-xl);
+  max-width: 540px;
 }
-.platform__content h2 { margin: var(--sp-sm) 0 var(--sp-md); }
-.platform__content p { margin-bottom: var(--sp-lg); }
+.platform__content .label { color: var(--gold); }
+.platform__content h2 { margin: var(--sp-sm) 0 var(--sp-md); color: var(--white); }
+.platform__content p { margin-bottom: var(--sp-lg); color: var(--ice); }
 
 .platform__visual {
   position: relative;
-  aspect-ratio: 16/12;
   overflow: hidden;
 }
 .platform__visual img {
