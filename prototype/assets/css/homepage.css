@@ -47,7 +47,7 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 0.75fr;
+  grid-template-columns: 1fr 1fr;
   gap: var(--sp-2xl);
   align-items: end;
 }
@@ -159,9 +159,9 @@
 /* Credentials bar — full-width below hero split */
 .hero__credentials {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: var(--sp-xl);
-  margin-top: var(--sp-xl);
+  margin-top: var(--sp-3xl);
   padding-top: var(--sp-lg);
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
@@ -845,7 +845,7 @@ h3 + p { margin-top: 0.5rem; }
 /* ---- RESPONSIVE ---- */
 @media (max-width: 1024px) {
   .hero__split {
-    grid-template-columns: 1fr 0.7fr;
+    grid-template-columns: 1fr 0.8fr;
     gap: var(--sp-xl);
   }
 
