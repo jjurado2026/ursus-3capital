@@ -239,31 +239,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Product items sequential reveal --- */
-  const productItems = document.querySelectorAll('.product-item');
-  if (productItems.length) {
+  /* --- Product cards staggered reveal --- */
+  const productCards = document.querySelectorAll('.product-card');
+  if (productCards.length) {
     const prodObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          const items = entry.target.closest('.products__list')?.querySelectorAll('.product-item');
-          if (items) {
-            items.forEach((item, i) => {
-              setTimeout(() => {
-                item.style.opacity = '1';
-                item.style.transform = 'translateX(0)';
-              }, i * 80);
-            });
-          }
+          productCards.forEach((card, i) => {
+            setTimeout(() => {
+              card.style.opacity = '1';
+              card.style.transform = 'translateY(0)';
+            }, i * 80);
+          });
           prodObs.unobserve(entry.target);
         }
       });
     }, { threshold: 0.1 });
-    productItems.forEach(item => {
-      item.style.opacity = '0';
-      item.style.transform = 'translateX(-20px)';
-      item.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+    productCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(24px)';
+      card.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
     });
-    if (productItems[0]) prodObs.observe(productItems[0]);
+    if (productCards[0]) prodObs.observe(productCards[0]);
   }
 
   /* --- Smooth scroll progress indicator --- */
