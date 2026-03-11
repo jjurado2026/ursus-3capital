@@ -206,9 +206,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: true });
   }
 
-  /* --- Blog cards staggered entrance --- */
+  /* --- Blog cards staggered entrance (desktop only) --- */
   const blogCards = document.querySelectorAll('.blog-card');
-  if (blogCards.length) {
+  const isMobile = window.matchMedia('(max-width: 768px)').matches;
+  if (blogCards.length && !isMobile) {
     const blogObs = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
