@@ -227,29 +227,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Product cards staggered reveal --- */
-  const productCards = document.querySelectorAll('.product-card');
-  if (productCards.length) {
-    const prodObs = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          productCards.forEach((card, i) => {
-            setTimeout(() => {
-              card.style.opacity = '1';
-              card.style.transform = 'translateY(0)';
-            }, i * 80);
-          });
-          prodObs.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-    productCards.forEach(card => {
-      card.style.opacity = '0';
-      card.style.transform = 'translateY(24px)';
-      card.style.transition = 'opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1)';
+  /* --- Product accordion toggle --- */
+  const productRows = document.querySelectorAll('.product-row');
+  productRows.forEach(row => {
+    row.addEventListener('click', () => {
+      const isOpen = row.classList.contains('product-row--open');
+      productRows.forEach(r => r.classList.remove('product-row--open'));
+      if (!isOpen) row.classList.add('product-row--open');
     });
-    if (productCards[0]) prodObs.observe(productCards[0]);
-  }
+  });
 
   /* --- Smooth scroll progress indicator --- */
   const progressBar = document.createElement('div');
