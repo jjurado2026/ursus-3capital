@@ -557,8 +557,8 @@ a {
 @media (max-width: 768px) {
   :root {
     --nav-h: 64px;
-    --sp-3xl: 5rem;
-    --sp-2xl: 4rem;
+    --sp-3xl: 4rem;
+    --sp-2xl: 3rem;
   }
 
   .nav__links { display: none; }
@@ -584,7 +584,7 @@ a {
 
 @media (max-width: 480px) {
   :root {
-    --sp-3xl: 4rem;
-    --sp-2xl: 3rem;
+    --sp-3xl: 3rem;
+    --sp-2xl: 2.5rem;
   }
 }

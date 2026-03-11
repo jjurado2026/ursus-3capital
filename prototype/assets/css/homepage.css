@@ -923,14 +923,28 @@ h3 + p { margin-top: 0.5rem; }
   }
   .hero__scroll { display: none; }
 
-  /* Credentials: full-width centered, visible on landing */
+  /* Credentials: single row with dot separators */
   .hero__credentials {
     flex-direction: row;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: center;
-    gap: var(--sp-sm) var(--sp-lg);
-    margin-top: var(--sp-lg);
+    gap: 0;
+    margin-top: var(--sp-xl);
+    margin-bottom: var(--sp-lg);
     padding-top: var(--sp-md);
+  }
+  .hero__credentials span {
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+  }
+  .hero__credentials span + span::before {
+    content: '·';
+    margin: 0 0.6rem;
+    color: rgba(255, 255, 255, 0.25);
+    font-size: 0.8rem;
+  }
+  .hero__credentials .gold-dot {
+    display: none;
   }
 
   /* Hide CTA from architects on mobile */
@@ -965,7 +979,7 @@ h3 + p { margin-top: 0.5rem; }
 
   .blog__header { flex-direction: column; align-items: flex-start; gap: var(--sp-md); }
 
-  /* Blog slider on mobile */
+  /* Blog slider on mobile — peek next card */
   .blog__grid {
     grid-template-columns: none;
     display: flex;
@@ -974,12 +988,16 @@ h3 + p { margin-top: 0.5rem; }
     -webkit-overflow-scrolling: touch;
     gap: var(--sp-md);
     padding-bottom: var(--sp-sm);
+    padding-left: var(--sp-md);
+    padding-right: var(--sp-md);
+    margin-left: calc(-1 * var(--sp-md));
+    margin-right: calc(-1 * var(--sp-md));
     scrollbar-width: none;
   }
   .blog__grid::-webkit-scrollbar { display: none; }
   .blog__grid .blog-card {
-    min-width: 80vw;
-    max-width: 80vw;
+    min-width: 72vw;
+    max-width: 72vw;
     scroll-snap-align: start;
     flex-shrink: 0;
   }
@@ -992,11 +1010,13 @@ h3 + p { margin-top: 0.5rem; }
 @media (max-width: 480px) {
   .hero__actions { flex-direction: column; align-items: flex-start; }
 
-  /* Credentials stack vertically on very small screens */
-  .hero__credentials {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--sp-xs);
+  /* Credentials: still single row, tighter on very small screens */
+  .hero__credentials span {
+    font-size: 0.55rem;
+    letter-spacing: 0.02em;
+  }
+  .hero__credentials span + span::before {
+    margin: 0 0.4rem;
   }
 
   .stats__grid { grid-template-columns: 1fr; }
@@ -1011,9 +1031,9 @@ h3 + p { margin-top: 0.5rem; }
     min-height: 200px;
   }
 
-  /* Blog slider: wider cards on small screens */
+  /* Blog slider: show peek on small screens too */
   .blog__grid .blog-card {
-    min-width: 85vw;
-    max-width: 85vw;
+    min-width: 78vw;
+    max-width: 78vw;
   }
 }
