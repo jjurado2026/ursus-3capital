@@ -14,8 +14,8 @@
   --navy-light:   #111875;
   --navy-mid:     #1a1f8c;
   --slate:        #3a3f8a;
-  --gold:         #1a1494;
-  --gold-light:   #2a24b4;
+  --gold:         #4a42d4;
+  --gold-light:   #6b63e8;
   --gold-pale:    #e8e6f8;
   --ice:          #e8ecf2;
   --ice-dim:      #6b7280;
@@ -27,7 +27,7 @@
   --bg-light-alt: #f7f8fc;
   --text-dark:    #111827;
   --text-mid:     #4b5563;
-  --border-light: rgba(26, 20, 148, 0.08);
+  --border-light: rgba(74, 66, 212, 0.08);
 
   /* Typography */
   --font-display: 'Cormorant Garamond', serif;
