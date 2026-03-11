@@ -911,18 +911,8 @@ h3 + p { margin-top: 0.5rem; }
 @media (max-width: 768px) {
   /* ---- HERO ---- */
   .hero {
-    height: 100dvh;      /* exact viewport — not min — so auto margins work */
-    min-height: 0;
-    padding: calc(var(--nav-h) + var(--sp-md)) 0 0;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .hero .container {
-    display: flex;
-    flex-direction: column;
-    flex: 1;
-    min-height: 0;
+    min-height: 100dvh;
+    padding: calc(var(--nav-h) + var(--sp-md)) 0 5rem; /* 5rem reserves space for credentials */
   }
   .hero__split {
     grid-template-columns: 1fr;
@@ -933,16 +923,19 @@ h3 + p { margin-top: 0.5rem; }
   .hero__image { display: none; }
   .hero__scroll { display: none; }
 
-  /* Credentials visible immediately — pushed to bottom of hero */
+  /* Credentials: absolute at bottom, always in viewport on first load */
   .hero__credentials {
+    position: absolute;
+    bottom: var(--sp-xl);    /* a little lower than very bottom */
+    left: 0;
+    right: 0;
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
     gap: 0;
-    margin-top: auto;
-    padding-top: var(--sp-md);
-    padding-bottom: var(--sp-lg);
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
   }
   .hero__credentials span {
     font-size: 0.58rem;
