@@ -8,19 +8,26 @@
 
 /* --- Tokens --- */
 :root {
-  /* Palette — Midnight Navy + Gold */
-  --midnight:     #060d18;
-  --navy:         #0a1628;
-  --navy-light:   #111f36;
-  --navy-mid:     #1a2d4a;
-  --slate:        #2a3f5f;
-  --gold:         #c8a855;
-  --gold-light:   #dfc477;
-  --gold-pale:    #f5ecd3;
+  /* Palette — Corporate Royal Blue + White */
+  --midnight:     #04062e;
+  --navy:         #0a0f4a;
+  --navy-light:   #111875;
+  --navy-mid:     #1a1f8c;
+  --slate:        #3a3f8a;
+  --gold:         #1a1494;
+  --gold-light:   #2a24b4;
+  --gold-pale:    #e8e6f8;
   --ice:          #e8ecf2;
-  --ice-dim:      #a0aec0;
-  --white:        #f0f2f5;
+  --ice-dim:      #6b7280;
+  --white:        #f5f6fa;
   --pure-white:   #ffffff;
+
+  /* Light section tokens */
+  --bg-light:     #ffffff;
+  --bg-light-alt: #f7f8fc;
+  --text-dark:    #111827;
+  --text-mid:     #4b5563;
+  --border-light: rgba(26, 20, 148, 0.08);
 
   /* Typography */
   --font-display: 'Syne', sans-serif;
@@ -138,14 +145,14 @@ a {
 
 .btn--primary {
   background: var(--gold);
-  color: var(--navy);
+  color: var(--pure-white);
   border-color: var(--gold);
 }
 .btn--primary:hover {
   background: var(--gold-light);
   border-color: var(--gold-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 30px rgba(200, 168, 85, 0.25);
+  box-shadow: 0 8px 30px rgba(26, 20, 148, 0.3);
 }
 .btn--primary:active { transform: translateY(0); }
 
@@ -207,8 +214,13 @@ a {
   text-transform: uppercase;
 }
 .nav__logo img {
-  height: 32px;
+  height: 36px;
   width: auto;
+  filter: brightness(0) invert(1);
+  transition: filter var(--dur) var(--ease-out);
+}
+.nav--scrolled .nav__logo img {
+  filter: none;
 }
 .nav__logo-divider {
   width: 1px;
@@ -269,15 +281,15 @@ a {
   font-weight: 500;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--gold);
-  border: 1px solid rgba(200, 168, 85, 0.3);
+  color: var(--pure-white);
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 0.6rem 1.25rem;
   border-radius: var(--r-sm);
   transition: all var(--dur-fast) var(--ease-out);
 }
 .nav__cta:hover {
   background: var(--gold);
-  color: var(--navy);
+  color: var(--pure-white);
 }
 .nav__cta:focus-visible {
   outline: 2px solid var(--gold);
@@ -286,9 +298,32 @@ a {
 
 /* Nav scrolled */
 .nav--scrolled {
-  background: rgba(6, 13, 24, 0.95);
+  background: rgba(255, 255, 255, 0.97);
   backdrop-filter: blur(20px);
-  box-shadow: 0 1px 0 rgba(200, 168, 85, 0.08);
+  box-shadow: 0 1px 0 rgba(26, 20, 148, 0.06);
+}
+.nav--scrolled .nav__link {
+  color: var(--text-mid);
+}
+.nav--scrolled .nav__link:hover {
+  color: var(--navy);
+}
+.nav--scrolled .nav__link::after {
+  background: var(--gold);
+}
+.nav--scrolled .nav__logo-divider {
+  background: rgba(26, 20, 148, 0.15);
+}
+.nav--scrolled .nav__logo-sub {
+  color: var(--text-mid);
+}
+.nav--scrolled .nav__cta {
+  color: var(--gold);
+  border-color: rgba(26, 20, 148, 0.15);
+}
+.nav--scrolled .nav__cta:hover {
+  background: var(--gold);
+  color: var(--pure-white);
 }
 
 /* Mobile burger */
@@ -396,7 +431,7 @@ a {
   margin-bottom: 0.6rem;
   transition: color var(--dur-fast) var(--ease-out);
 }
-.footer__col a:hover { color: var(--gold); }
+.footer__col a:hover { color: var(--pure-white); }
 .footer__col a:focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 2px;
@@ -460,6 +495,42 @@ a {
 }
 .line-draw--visible {
   width: 100%;
+}
+
+/* --- Light sections --- */
+.section--light {
+  background: var(--bg-light);
+}
+.section--light-alt {
+  background: var(--bg-light-alt);
+}
+.section--light h2,
+.section--light h3,
+.section--light-alt h2,
+.section--light-alt h3 {
+  color: var(--text-dark);
+}
+.section--light p,
+.section--light-alt p {
+  color: var(--text-mid);
+}
+.section--light .label,
+.section--light-alt .label {
+  color: var(--gold);
+}
+.section--light .divider,
+.section--light-alt .divider {
+  background: var(--gold);
+}
+.section--light .btn--outline,
+.section--light-alt .btn--outline {
+  color: var(--text-dark);
+  border-color: rgba(26, 20, 148, 0.2);
+}
+.section--light .btn--outline:hover,
+.section--light-alt .btn--outline:hover {
+  border-color: var(--gold);
+  color: var(--gold);
 }
 
 /* --- Grain overlay --- */
