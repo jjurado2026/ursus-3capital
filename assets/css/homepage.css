@@ -49,11 +49,12 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--sp-2xl);
-  align-items: end;
+  align-items: stretch;
 }
 
 .hero__content {
   position: relative;
+  align-self: end;
 }
 
 .hero__label {
@@ -104,8 +105,7 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  aspect-ratio: 3/4;
-  max-height: 480px;
+  min-height: 400px;
   opacity: 0;
   transform: translateX(40px);
   animation: heroImageIn 1.2s 0.5s var(--ease-out) forwards;
@@ -548,9 +548,10 @@
   max-width: 600px;
 }
 
-/* ---- PLATFORM ---- */
+/* ---- PLATFORM (light) ---- */
 .platform {
   padding: var(--sp-3xl) 0;
+  background: var(--bg-light);
 }
 
 .platform__inner {
@@ -587,12 +588,13 @@
   background: linear-gradient(to right, var(--navy) 0%, transparent 30%);
 }
 
-/* ---- ARCHITECTS (big CTA section) ---- */
+/* ---- ARCHITECTS (light-alt CTA section) ---- */
 .architects {
   padding: var(--sp-3xl) 0;
   text-align: center;
   position: relative;
   overflow: hidden;
+  background: var(--bg-light-alt);
 }
 
 .architects::before {
@@ -602,6 +604,14 @@
   background:
     linear-gradient(135deg, rgba(26,20,148,0.03) 0%, transparent 50%),
     linear-gradient(225deg, rgba(26,20,148,0.02) 0%, transparent 50%);
+}
+
+.architects h2,
+.architects p {
+  color: var(--text-dark);
+}
+.architects .label {
+  color: var(--gold);
 }
 
 .architects__inner {
