@@ -237,6 +237,81 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* --- Quote text character split reveal --- */
+  const quoteText = document.querySelector('.quote__text');
+  if (quoteText) {
+    const text = quoteText.textContent;
+    quoteText.innerHTML = '';
+    text.split('').forEach((char, i) => {
+      const span = document.createElement('span');
+      span.textContent = char === ' ' ? '\u00A0' : char;
+      span.style.display = 'inline-block';
+      span.style.opacity = '0';
+      span.style.transform = 'translateY(20px) rotateX(40deg)';
+      span.style.transition = `opacity 0.4s ${i * 0.02}s ease, transform 0.5s ${i * 0.02}s cubic-bezier(0.16, 1, 0.3, 1)`;
+      quoteText.appendChild(span);
+    });
+    const quoteObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          quoteText.querySelectorAll('span').forEach(s => {
+            s.style.opacity = '1';
+            s.style.transform = 'translateY(0) rotateX(0)';
+          });
+          quoteObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    quoteObs.observe(quoteText);
+  }
+
+  /* --- Stats items scale-in with stagger --- */
+  const statsItems = document.querySelectorAll('.stats__item');
+  if (statsItems.length) {
+    statsItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'scale(0.85)';
+      item.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+    });
+    const siObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          statsItems.forEach((item, i) => {
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'scale(1)';
+            }, i * 120);
+          });
+          siObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    if (statsItems[0]) siObs.observe(statsItems[0]);
+  }
+
+  /* --- Product rows slide-in from left with stagger --- */
+  productRows.forEach((row, i) => {
+    row.style.opacity = '0';
+    row.style.transform = 'translateX(-30px)';
+    row.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+  });
+  if (productRows.length) {
+    const prObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          productRows.forEach((row, i) => {
+            setTimeout(() => {
+              row.style.opacity = '1';
+              row.style.transform = 'translateX(0)';
+            }, i * 60);
+          });
+          prObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    prObs.observe(productRows[0]);
+  }
+
   /* --- Smooth scroll progress indicator --- */
   const progressBar = document.createElement('div');
   progressBar.className = 'scroll-progress';
