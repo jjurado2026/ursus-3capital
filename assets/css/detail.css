@@ -90,6 +90,15 @@
   padding: var(--sp-3xl) 0;
 }
 
+.detail__main,
+.page-hero__title,
+.page-hero__subtitle,
+.sidebar__cta,
+.sidebar__related {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
 .detail__grid {
   display: grid;
   grid-template-columns: 1fr 380px;
@@ -547,7 +556,7 @@
   .detail__sidebar {
     position: static;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
     gap: var(--sp-md);
   }
 
@@ -573,10 +582,6 @@
 }
 
 @media (max-width: 480px) {
-  .detail__sidebar {
-    grid-template-columns: 1fr;
-  }
-
   .page-hero__breadcrumb {
     font-size: 0.7rem;
   }
