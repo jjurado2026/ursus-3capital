@@ -1,6 +1,6 @@
 /* ============================================
    URSUS-3 CAPITAL — Animations
-   Reveal, counters, line draws
+   Reveal, counters, parallax, clip-path, magnetic
    ============================================ */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(update);
   }
 
-  /* --- Hero title letter stagger --- */
+  /* --- Hero title word-by-word reveal --- */
   const heroTitle = document.querySelector('.hero__title');
   if (heroTitle) {
     const text = heroTitle.textContent;
@@ -117,12 +117,163 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* --- Service card hover line --- */
-  const serviceCards = document.querySelectorAll('.service-card');
-  serviceCards.forEach(card => {
-    card.addEventListener('mouseenter', () => {
-      card.style.transition = 'background 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+  /* --- Parallax on scroll (images & banners) --- */
+  const parallaxEls = document.querySelectorAll('.hero__image img, .image-banner__inner img, .about__image img');
+  if (parallaxEls.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let ticking = false;
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          parallaxEls.forEach(img => {
+            const rect = img.closest('section, .hero__image, .about__image, .image-banner')?.getBoundingClientRect();
+            if (!rect) return;
+            const viewH = window.innerHeight;
+            if (rect.top < viewH && rect.bottom > 0) {
+              const progress = (viewH - rect.top) / (viewH + rect.height);
+              const shift = (progress - 0.5) * 40;
+              img.style.transform = `translateY(${shift}px) scale(1.08)`;
+            }
+          });
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  /* --- Magnetic hover on buttons --- */
+  const magneticBtns = document.querySelectorAll('.btn--primary, .nav__cta');
+  magneticBtns.forEach(btn => {
+    btn.addEventListener('mousemove', (e) => {
+      const rect = btn.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      btn.style.transform = `translate(${x * 0.15}px, ${y * 0.15}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+      btn.style.transition = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => { btn.style.transition = ''; }, 400);
     });
   });
+
+  /* --- Service card tilt on hover --- */
+  const serviceCards = document.querySelectorAll('.service-card');
+  serviceCards.forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), background 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+      setTimeout(() => { card.style.transition = 'background var(--dur) var(--ease-out)'; }, 500);
+    });
+  });
+
+  /* --- Stats number slot-machine effect --- */
+  const statNumbers = document.querySelectorAll('.stats__number');
+  if (statNumbers.length) {
+    const statsObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.closest('.stats__item')?.classList.add('stats__item--visible');
+          statsObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    statNumbers.forEach(el => statsObs.observe(el));
+  }
+
+  /* --- Clip-path reveal for about image --- */
+  const aboutImage = document.querySelector('.about__image');
+  if (aboutImage) {
+    aboutImage.style.clipPath = 'inset(100% 0 0 0)';
+    aboutImage.style.transition = 'clip-path 1.2s cubic-bezier(0.16, 1, 0.3, 1)';
+    const aboutObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.clipPath = 'inset(0 0 0 0)';
+          aboutObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    aboutObs.observe(aboutImage);
+  }
+
+  /* --- Image banner parallax text --- */
+  const bannerContent = document.querySelector('.image-banner__content');
+  if (bannerContent && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    window.addEventListener('scroll', () => {
+      const rect = bannerContent.closest('.image-banner')?.getBoundingClientRect();
+      if (!rect) return;
+      const viewH = window.innerHeight;
+      if (rect.top < viewH && rect.bottom > 0) {
+        const progress = (viewH - rect.top) / (viewH + rect.height);
+        bannerContent.style.transform = `translateY(${(0.5 - progress) * 30}px)`;
+        bannerContent.style.opacity = Math.min(1, progress * 2);
+      }
+    }, { passive: true });
+  }
+
+  /* --- Blog cards staggered entrance --- */
+  const blogCards = document.querySelectorAll('.blog-card');
+  if (blogCards.length) {
+    const blogObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const idx = Array.from(blogCards).indexOf(entry.target);
+          entry.target.style.transitionDelay = `${idx * 0.12}s`;
+          entry.target.classList.add('blog-card--visible');
+          blogObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    blogCards.forEach(card => {
+      card.style.opacity = '0';
+      card.style.transform = 'translateY(40px)';
+      card.style.transition = 'opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+      blogObs.observe(card);
+    });
+  }
+
+  /* --- Product items sequential reveal --- */
+  const productItems = document.querySelectorAll('.product-item');
+  if (productItems.length) {
+    const prodObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const items = entry.target.closest('.products__list')?.querySelectorAll('.product-item');
+          if (items) {
+            items.forEach((item, i) => {
+              setTimeout(() => {
+                item.style.opacity = '1';
+                item.style.transform = 'translateX(0)';
+              }, i * 80);
+            });
+          }
+          prodObs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    productItems.forEach(item => {
+      item.style.opacity = '0';
+      item.style.transform = 'translateX(-20px)';
+      item.style.transition = 'opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+    });
+    if (productItems[0]) prodObs.observe(productItems[0]);
+  }
+
+  /* --- Smooth scroll progress indicator --- */
+  const progressBar = document.createElement('div');
+  progressBar.className = 'scroll-progress';
+  progressBar.style.cssText = 'position:fixed;top:0;left:0;height:2px;background:var(--gold);z-index:9999;transform-origin:left;transform:scaleX(0);transition:none;pointer-events:none;';
+  document.body.appendChild(progressBar);
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+    progressBar.style.transform = `scaleX(${scrolled})`;
+  }, { passive: true });
 
 });
