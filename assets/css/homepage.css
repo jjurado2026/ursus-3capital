@@ -912,7 +912,7 @@ h3 + p { margin-top: 0.5rem; }
   /* ---- HERO ---- */
   .hero {
     min-height: 100dvh;
-    padding: calc(var(--nav-h) + var(--sp-md)) 0 5rem; /* 5rem reserves space for credentials */
+    padding: calc(var(--nav-h) + var(--sp-sm)) 0 4rem; /* reduce top, credentials at bottom */
   }
   .hero__split {
     grid-template-columns: 1fr;
@@ -926,7 +926,7 @@ h3 + p { margin-top: 0.5rem; }
   /* Credentials: absolute at bottom, always in viewport on first load */
   .hero__credentials {
     position: absolute;
-    bottom: var(--sp-xl);    /* a little lower than very bottom */
+    bottom: var(--sp-md);    /* closer to bottom edge */
     left: 0;
     right: 0;
     flex-direction: row;

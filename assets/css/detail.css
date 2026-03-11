@@ -563,13 +563,13 @@
     grid-template-columns: 1fr;
   }
 
-  .detail-cta .btn {
-    display: block;
-    margin: 0 auto var(--sp-sm);
-    max-width: 300px;
-    text-align: center;
-    justify-content: center;
+  .detail-cta__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--sp-sm);
   }
+  .detail-cta__inner > * { width: auto; }
 }
 
 @media (max-width: 480px) {
