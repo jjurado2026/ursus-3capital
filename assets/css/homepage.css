@@ -590,27 +590,38 @@
   background: linear-gradient(to right, var(--navy) 0%, transparent 30%);
 }
 
-/* ---- ARCHITECTS (light-alt CTA section) ---- */
+/* ---- ARCHITECTS (dark CTA — quote style) ---- */
 .architects {
   padding: var(--sp-3xl) 0;
   text-align: center;
   position: relative;
   overflow: hidden;
-  background: var(--bg-light-alt);
+  background: var(--midnight);
 }
 
 .architects::before {
-  content: '';
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 8rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.1;
   position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(26,20,148,0.03) 0%, transparent 50%),
-    linear-gradient(225deg, rgba(26,20,148,0.02) 0%, transparent 50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  pointer-events: none;
 }
 
-.architects h2,
+.architects h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3vw + 0.5rem, 2.8rem);
+  margin: var(--sp-sm) 0 var(--sp-md);
+}
 .architects p {
-  color: var(--text-dark);
+  color: var(--ice-dim);
+  margin: 0 auto var(--sp-xl);
+  text-align: center;
 }
 .architects .label {
   color: var(--gold);
@@ -622,13 +633,13 @@
   margin: 0 auto;
 }
 
-.architects h2 {
-  margin: var(--sp-sm) 0 var(--sp-md);
-}
-
-.architects p {
+.architects__inner::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
   margin: 0 auto var(--sp-xl);
-  text-align: center;
 }
 
 /* ---- BLOG (light-alt) ---- */
