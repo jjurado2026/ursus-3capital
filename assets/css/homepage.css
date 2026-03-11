@@ -911,15 +911,18 @@ h3 + p { margin-top: 0.5rem; }
 @media (max-width: 768px) {
   /* ---- HERO ---- */
   .hero {
-    min-height: 100dvh;
+    height: 100dvh;      /* exact viewport — not min — so auto margins work */
+    min-height: 0;
     padding: calc(var(--nav-h) + var(--sp-md)) 0 0;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
   }
   .hero .container {
     display: flex;
     flex-direction: column;
     flex: 1;
+    min-height: 0;
   }
   .hero__split {
     grid-template-columns: 1fr;
@@ -979,7 +982,7 @@ h3 + p { margin-top: 0.5rem; }
   /* ---- ARCHITECTS ---- */
   .architects .btn { display: none; }
   .architects { padding-bottom: 0; }
-  .architects__inner::after { margin-bottom: var(--sp-md); }
+  .architects__inner::after { display: none; }
 
   /* ---- BLOG ---- */
   .blog__header {
@@ -988,7 +991,7 @@ h3 + p { margin-top: 0.5rem; }
     gap: var(--sp-sm);
     margin-bottom: var(--sp-md);
   }
-  /* Slider: break out of container, align left edge with content */
+  /* Slider: left edge aligned with content, right edge peeks next card */
   .blog__grid {
     grid-template-columns: none;
     display: flex;
@@ -997,11 +1000,12 @@ h3 + p { margin-top: 0.5rem; }
     -webkit-overflow-scrolling: touch;
     gap: var(--sp-md);
     padding-bottom: var(--sp-sm);
-    /* Start aligned with container content, peek next card on right */
-    padding-left: 0;
-    padding-right: var(--sp-md);
-    margin-left: 0;
+    /* Pull left to screen edge, restore padding so 1st card aligns with content */
+    margin-left: calc(-1 * var(--sp-md));
+    padding-left: var(--sp-md);
+    /* Extend right past container so next card peeks */
     margin-right: calc(-1 * var(--sp-md));
+    padding-right: var(--sp-md);
     scrollbar-width: none;
   }
   .blog__grid::-webkit-scrollbar { display: none; }
