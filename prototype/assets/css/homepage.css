@@ -47,9 +47,9 @@
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 0.85fr;
+  grid-template-columns: 1fr 0.75fr;
   gap: var(--sp-2xl);
-  align-items: center;
+  align-items: end;
 }
 
 .hero__content {
@@ -74,7 +74,14 @@
 
 .hero__title {
   margin-bottom: var(--sp-sm);
-  line-height: 1.1;
+  line-height: 1;
+}
+.hero__title-line {
+  display: block;
+  overflow: hidden;
+}
+.hero__title-line > span {
+  display: block;
 }
 
 .hero__subtitle {
@@ -97,7 +104,8 @@
   position: relative;
   border-radius: var(--r-lg);
   overflow: hidden;
-  aspect-ratio: 4/5;
+  aspect-ratio: 3/4;
+  max-height: 480px;
   opacity: 0;
   transform: translateX(40px);
   animation: heroImageIn 1.2s 0.5s var(--ease-out) forwards;
@@ -148,14 +156,14 @@
   50% { opacity: 1; transform: scaleY(1); }
 }
 
-/* Credentials inline in hero content */
+/* Credentials bar — full-width below hero split */
 .hero__credentials {
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-sm) var(--sp-lg);
+  justify-content: flex-start;
+  gap: var(--sp-xl);
   margin-top: var(--sp-xl);
-  padding-top: var(--sp-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: var(--sp-lg);
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 .hero__credentials span {
   display: flex;
@@ -164,7 +172,7 @@
   font-size: 0.75rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.45);
+  color: rgba(255, 255, 255, 0.4);
 }
 .hero__credentials .gold-dot {
   width: 5px;
@@ -883,6 +891,8 @@ h3 + p { margin-top: 0.5rem; }
   .hero__credentials {
     flex-direction: column;
     gap: var(--sp-xs);
+    margin-top: var(--sp-md);
+    padding-top: var(--sp-md);
   }
 
   .stats__grid {

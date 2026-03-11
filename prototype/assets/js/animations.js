@@ -84,35 +84,23 @@ document.addEventListener('DOMContentLoaded', () => {
     requestAnimationFrame(update);
   }
 
-  /* --- Hero title word-by-word reveal --- */
-  const heroTitle = document.querySelector('.hero__title');
-  if (heroTitle) {
-    const text = heroTitle.textContent;
-    heroTitle.innerHTML = '';
-    const words = text.split(' ');
-
-    words.forEach((word, wIdx) => {
-      const wordSpan = document.createElement('span');
-      wordSpan.style.display = 'inline-block';
-      wordSpan.style.overflow = 'hidden';
-
+  /* --- Hero title line-by-line reveal --- */
+  const heroLines = document.querySelectorAll('.hero__title-line');
+  if (heroLines.length) {
+    heroLines.forEach((line, idx) => {
+      const text = line.textContent;
+      line.textContent = '';
       const inner = document.createElement('span');
-      inner.textContent = word;
-      inner.style.display = 'inline-block';
+      inner.textContent = text;
+      inner.style.display = 'block';
       inner.style.transform = 'translateY(110%)';
-      inner.style.transition = `transform 0.8s ${0.1 + wIdx * 0.08}s cubic-bezier(0.16, 1, 0.3, 1)`;
-      wordSpan.appendChild(inner);
-      heroTitle.appendChild(wordSpan);
-
-      if (wIdx < words.length - 1) {
-        const space = document.createTextNode('\u00A0');
-        heroTitle.appendChild(space);
-      }
+      inner.style.transition = `transform 0.9s ${0.15 + idx * 0.12}s cubic-bezier(0.16, 1, 0.3, 1)`;
+      line.appendChild(inner);
     });
 
     requestAnimationFrame(() => {
-      heroTitle.querySelectorAll('span > span').forEach(inner => {
-        inner.style.transform = 'translateY(0)';
+      heroLines.forEach(line => {
+        line.querySelector('span').style.transform = 'translateY(0)';
       });
     });
   }
