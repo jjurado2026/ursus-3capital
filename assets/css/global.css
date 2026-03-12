@@ -390,6 +390,7 @@ a {
   background: var(--navy);
   border-top: 1px solid rgba(240, 242, 245, 0.06);
   padding: var(--sp-2xl) 0 var(--sp-lg);
+  overflow: hidden;
 }
 
 .footer__top {

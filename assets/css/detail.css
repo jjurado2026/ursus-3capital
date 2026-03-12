@@ -88,6 +88,7 @@
 .detail {
   background: var(--bg-light);
   padding: var(--sp-3xl) 0;
+  overflow: hidden;
 }
 
 .detail__main,
@@ -425,6 +426,7 @@
   background: var(--navy);
   padding: var(--sp-3xl) 0;
   text-align: center;
+  overflow: hidden;
 }
 
 .detail-cta__inner {
@@ -449,6 +451,7 @@
 .related {
   background: var(--bg-light-alt);
   padding: var(--sp-3xl) 0;
+  overflow: hidden;
 }
 
 .related__header {
